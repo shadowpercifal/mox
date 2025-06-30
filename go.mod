@@ -35,5 +35,3 @@ require (
 	golang.org/x/tools v0.32.0 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 )
-
-replace github.com/mjl-/mox => github.com/shadowpercifal/mox
