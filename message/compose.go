@@ -113,7 +113,7 @@ func (xc *Composer) Subject(subject string) {
 	var subjectValue string
 	subjectLineLen := len("Subject: ")
 	subjectWord := false
-	fmt.Fprintf(xc, "Subject before: %s\r\n", subject)
+	log.Debug("Subject compose.go before: " + subject)
 	for i, word := range strings.Split(subject, " ") {
 		if !xc.SMTPUTF8 && !isASCII(word) {
 			word = mime.QEncoding.Encode("utf-8", word)
@@ -130,7 +130,7 @@ func (xc *Composer) Subject(subject string) {
 		subjectLineLen += len(word)
 		subjectWord = true
 	}
-	fmt.Fprintf(xc, "Subject after: %s\r\n", subjectValue)
+	log.Debug("Subject compose.go after: " + subjectValue)
 	xc.Header("Subject", subjectValue)
 }
 
