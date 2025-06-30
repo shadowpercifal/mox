@@ -11,7 +11,6 @@ import (
 	"strings"
 
 	"github.com/mjl-/mox/smtp"
-	"github.com/mjl-/mox/mlog"
 )
 
 var (
@@ -111,28 +110,26 @@ func (xc *Composer) HeaderAddrs(k string, l []NameAddress) {
 
 // Subject writes a subject message header.
 func (xc *Composer) Subject(subject string) {
-	log := mlog.New("compose", nil)
 	var subjectValue string
 	subjectLineLen := len("Subject: ")
 	subjectWord := false
-	log.Debug("Subject compose.go before: " + subject)
 	for i, word := range strings.Split(subject, " ") {
+		actualLen := len(word)
 		if !xc.SMTPUTF8 && !isASCII(word) {
 			word = mime.QEncoding.Encode("utf-8", word)
-		}
-		if subjectWord && subjectLineLen+len(word) > 77 {
-			subjectValue += "\r\n"
-			subjectLineLen = 1
 		}
 		if i > 0 {
 			subjectValue += " "
 			subjectLineLen++
 		}
+		if subjectWord && subjectLineLen+actualLen > 77 {
+			subjectValue += "\r\n\t"
+			subjectLineLen = 1
+		}
 		subjectValue += word
-		subjectLineLen += len(word)
+		subjectLineLen += actualLen
 		subjectWord = true
 	}
-	log.Debug("Subject compose.go after: " + subjectValue)
 	xc.Header("Subject", subjectValue)
 }
 
