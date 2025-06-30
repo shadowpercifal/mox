@@ -112,7 +112,7 @@ func (xc *Composer) HeaderAddrs(k string, l []NameAddress) {
 func (xc *Composer) Subject(subject string) {
 	var subjectValue string
 	subjectLineLen := len("Subject: ")
-	subjectWord := false
+	// subjectWord := false
 	for i, word := range strings.Split(subject, " ") {
 		actualLen := len(word)
 		if !xc.SMTPUTF8 && !isASCII(word) {
@@ -128,7 +128,7 @@ func (xc *Composer) Subject(subject string) {
 		// }
 		subjectValue += word
 		subjectLineLen += actualLen
-		subjectWord = true
+		// subjectWord = true
 	}
 	xc.Header("Subject", subjectValue)
 }
