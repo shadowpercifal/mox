@@ -117,13 +117,13 @@ func (xc *Composer) Subject(subject string) {
 		if !xc.SMTPUTF8 && !isASCII(word) {
 			word = mime.QEncoding.Encode("utf-8", word)
 		}
-		if i > 0 {
-			subjectValue += " "
-			subjectLineLen++
-		}
 		if subjectWord && subjectLineLen+len(word) > 77 {
 			subjectValue += "\r\n\t"
 			subjectLineLen = 1
+		}
+		if i > 0 {
+			subjectValue += " "
+			subjectLineLen++
 		}
 		subjectValue += word
 		subjectLineLen += len(word)
