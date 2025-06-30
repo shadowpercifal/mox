@@ -113,12 +113,13 @@ func (xc *Composer) Subject(subject string) {
 	var subjectValue string
 	subjectLineLen := len("Subject: ")
 	subjectWord := false
+	fmt.Fprintf(xc, "Subject before: %s\r\n", subject)
 	for i, word := range strings.Split(subject, " ") {
 		if !xc.SMTPUTF8 && !isASCII(word) {
 			word = mime.QEncoding.Encode("utf-8", word)
 		}
 		if subjectWord && subjectLineLen+len(word) > 77 {
-			subjectValue += "\r\n\t"
+			subjectValue += "\r\n"
 			subjectLineLen = 1
 		}
 		if i > 0 {
@@ -129,6 +130,7 @@ func (xc *Composer) Subject(subject string) {
 		subjectLineLen += len(word)
 		subjectWord = true
 	}
+	fmt.Fprintf(xc, "Subject after: %s\r\n", subjectValue)
 	xc.Header("Subject", subjectValue)
 }
 
