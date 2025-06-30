@@ -122,10 +122,10 @@ func (xc *Composer) Subject(subject string) {
 			subjectValue += " "
 			subjectLineLen++
 		}
-		if subjectWord && subjectLineLen+actualLen > 77 {
-			subjectValue += "\r\n\t"
-			subjectLineLen = 1
-		}
+		// if subjectWord && subjectLineLen+actualLen > 77 {
+		// 	subjectValue += "\r\n\t"
+		// 	subjectLineLen = 1
+		// }
 		subjectValue += word
 		subjectLineLen += actualLen
 		subjectWord = true
