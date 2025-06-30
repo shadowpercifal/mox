@@ -752,7 +752,7 @@ func (w Webmail) MessageSubmit(ctx context.Context, m SubmitMessage) {
 	xc.HeaderAddrs("Cc", ccAddrs)
 	// We prepend Bcc headers to the message when adding to the Sent mailbox.
 	if m.Subject != "" {
-		log.Debug("Subject send.go submit: " + subject)
+		log.Debug("Subject send.go submit: " + m.Subject)
 		xc.Subject(m.Subject)
 	}
 
