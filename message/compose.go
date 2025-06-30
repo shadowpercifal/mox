@@ -111,6 +111,7 @@ func (xc *Composer) HeaderAddrs(k string, l []NameAddress) {
 
 // Subject writes a subject message header.
 func (xc *Composer) Subject(subject string) {
+	log := mlog.New("compose", nil)
 	var subjectValue string
 	subjectLineLen := len("Subject: ")
 	subjectWord := false
