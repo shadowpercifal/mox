@@ -114,11 +114,8 @@ func (xc *Composer) Subject(subject string) {
 	subjectLineLen := len("Subject: ")
 	subjectWord := false
 	for i, word := range strings.Split(subject, " ") {
-		if !xc.SMTPUTF8 && !isASCII(word) {
-			word = mime.QEncoding.Encode("utf-8", word)
-		}
+		word = mime.QEncoding.Encode("utf-8", word + " ")
 		if i > 0 {
-			subjectValue += " "
 			subjectLineLen++
 		}
 		if subjectWord && subjectLineLen+len(word) > 77 {
